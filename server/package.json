@@ -9,6 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^2.4.1"
+    "@tensorflow/tfjs-node": "^1.1.2",
+    "events": "^3.0.0",
+    "fastify": "^2.4.1",
+    "fastify-ws": "^1.0.1",
+    "path": "^0.12.7",
+    "rollup": "^1.13.1",
+    "url": "^0.11.0",
+    "uuid": "^3.3.2",
+    "windows-build-tools": "^5.1.0"
   }
 }

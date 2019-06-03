@@ -1,19 +1,48 @@
-// Require the framework and instantiate it
-const fastify = require('fastify')({ logger: true })
+'use strict'
 
-// Declare a route
-fastify.get('/', async (request, reply) => {
-  return { hello: 'world' }
-})
+const fastify = require('fastify')()
+let url = require('url')
+var EventEmitter = require("events").EventEmitter;
+var prediction = new EventEmitter();
 
-// Run the server!
-const start = async () => {
-  try {
-    await fastify.listen(3000)
-    fastify.log.info(`server listening on ${fastify.server.address().port}`)
-  } catch (err) {
-    fastify.log.error(err)
-    process.exit(1)
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+//funcion para probar que envie correctamente
+async function predict() {
+  while(true) {
+    await sleep(2000)
+    prediction.emit('newPrediction', 0)
   }
 }
-start()
+
+fastify.register(require('fastify-ws'))
+
+//iniciar el servidor
+fastify.ready(err => {
+  if (err) throw err
+
+  console.log('Server started.')
+  predict()
+  let userSockets = {}
+
+  fastify.ws.on('connection', (socket, request) => {
+      console.log('Client connected.')
+      let userId = request.url
+      userSockets[userId] = socket
+
+      let sendPrediction = function(res) {
+        socket.send(res)
+      }
+
+      prediction.on('newPrediction', sendPrediction)
+
+      socket.on('close', () => {
+        console.log('Client disconnected.')
+        prediction.removeListener("newPrediction", sendPrediction);
+      })
+    })
+})
+
+fastify.listen(34567)

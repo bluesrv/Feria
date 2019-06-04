@@ -1,21 +1,43 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>{% block title %} Document {% endblock %}</title>
+  
+  {% block title %}<title>title</title>{% endblock %}
+
+  {%block titleSidebar %} Beegilant {% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
+
 <body>
-	{% block header %}
-	<h4>Este es el bloque header base</h4>
-	{% endblock %}
 
-	{% block content %}
-	<h5>Este en el contendio del archivo base</h5>
-	{% endblock %}
+  <div class="container-fluid">
 
-	{% block footer%}
-	<h5>Soy el footer base</h5>
-	{% endblock %}
+    <div class="row">
+      <div class="col-sm-2">
+      {% block sidebar %}
+      <ul class="sidebar-nav">
+          <li><a href="">Inicio</a></li>
+          <li><a href="">Camaras</a></li>
+          <li><a href="">Registros</a></li>
+      </ul>
+     {% endblock %}
 
+      </div>
+      <div class="col-sm-10 ">
+        <div>
+         	<h1>Beegilant</h1>
+    	</div>
+      {% block content %} Gráfico {% endblock %}
+      </div>
+    </div>
+
+  </div>
 </body>
 </html>
+

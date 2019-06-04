@@ -14,28 +14,26 @@
 </head>
 
 <body>
-
   <div class="container-fluid">
-
+  	<div class="header-nav">
+    	<h1>Titulo</h1>
+    </div>
     <div class="row">
-      <div class="col-sm-2">
-      {% block sidebar %}
-      <div class="contenedor-side">
-      	 <ul class="sidebar-nav">  	 	
-         <h1 style="color:#FFA500;" >Beegilant</h1>
-         <li><a style="color:#FFA500;" href="">Inicio</a></li>
-         <li><a style="color:#FFA500;" href="">Camaras</a></li>
-         <li><a style="color:#FFA500;" href="">Registros</a></li>
-      	</ul>
-</div>
-
-     {% endblock %}
-
-      </div>
-      <div class="col-sm-10 ">
-      
-      {% block content %} Gráfico {% endblock %}
-      </div>
+    	<div class="col-sm-2">
+      		{% block sidebar %}
+      		<div class="contenedor-side">
+      	 		<ul class="sidebar-nav">  	 	
+         			<h1 style="color:#FFA500;" >Beegilant</h1>
+         			<li><a style="color:#FFA500;" href="">Inicio</a></li>
+         			<li><a style="color:#FFA500;" href="">Camaras</a></li>
+         			<li><a style="color:#FFA500;" href="">Registros</a></li>
+      			</ul>
+			</div>
+	    	{% endblock %}
+      	</div>
+    	<div class="col-sm-10 ">
+      		{% block content %} Info {% endblock %}
+      	</div>
     </div>
 
   </div>

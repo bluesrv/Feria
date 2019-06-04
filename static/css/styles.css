@@ -16,3 +16,7 @@ h1 {
 li {
   text-align: center;
 }
+.header-nav{
+	background-color: #FFA500;
+	height: 80px;
+}

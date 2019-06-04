@@ -4,10 +4,9 @@
   
   {% block title %}<title>title</title>{% endblock %}
 
-  {%block titleSidebar %} Beegilant {% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity=sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   {% load static %}
@@ -21,18 +20,20 @@
     <div class="row">
       <div class="col-sm-2">
       {% block sidebar %}
-      <ul class="sidebar-nav">
-          <li><a href="">Inicio</a></li>
-          <li><a href="">Camaras</a></li>
-          <li><a href="">Registros</a></li>
-      </ul>
+      <div class="contenedor-side">
+      	 <ul class="sidebar-nav">  	 	
+         <h1 style="color:#FFA500;" >Beegilant</h1>
+         <li><a style="color:#FFA500;" href="">Inicio</a></li>
+         <li><a style="color:#FFA500;" href="">Camaras</a></li>
+         <li><a style="color:#FFA500;" href="">Registros</a></li>
+      	</ul>
+</div>
+
      {% endblock %}
 
       </div>
       <div class="col-sm-10 ">
-        <div>
-         	<h1>Beegilant</h1>
-    	</div>
+      
       {% block content %} Gráfico {% endblock %}
       </div>
     </div>

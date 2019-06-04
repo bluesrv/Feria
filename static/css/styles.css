@@ -1,14 +1,18 @@
 .sidebar-nav {
-    margin-top: 200px;
+    margin-top: 20px;
     padding: 0;
     list-style: none;
+    
 }
-.page-header {
-    background-color: #ff9400;
-    margin-top: 0;
-    padding: 20px 20px 20px 40px;
+.contenedor-side{
+	margin-top: 0px;
+    padding: 0;
+	background-color: #696969;
+	height: 500px;
 }
-h1 a {
-    color: #FCA205;
-    font-family: 'Lobster';
+h1 {
+  text-align: center;
+}
+li {
+  text-align: center;
 }

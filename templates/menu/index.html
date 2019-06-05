@@ -13,13 +13,9 @@
     {% block jsincludes %}
         <script src="{% static "Scripts/Socketconf.js" %}"></script>
     {% endblock %}
-<h2>El Gráfico va aqu</h2>
-    <canvas id="myChart" width="400" height="400"></canvas>
-    <input type="hidden" id="recived" name="recived" value="0">
-
-
-
-
+	<h2>El Gráfico va aqui</h2>
+    	<canvas id="myChart" width="300" height="300"></canvas>
+    	<input type="hidden" id="recived" name="recived" value="0">	
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
 jQuery('#recived').on('change', function (evt) {
@@ -94,5 +90,6 @@ function removeData(chart) {
 }
 
 </script>
+
 
 {%endblock%}

@@ -1,4 +1,7 @@
-{% extends 'base/dashboard.html' %}
+{% extends 'base/base.html' %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script>jQuery.noConflict();</script>
+
 
 {% block title %}
 <title>Beegilant</title>
@@ -10,23 +13,12 @@
     {% block jsincludes %}
         <script src="{% static "Scripts/Socketconf.js" %}"></script>
     {% endblock %}
-    <div class="card-header">
-    Gráfico
-    </div>
-    <div class="card-body">
-        <canvas id="myChart" width="400" height="300"></canvas>
-    </div>
-
-    <input type="hidden" id="recived" name="recived" value="0">
-
-
-
-
+	<h2>El Gráfico va aqui</h2>
+    	<canvas id="myChart" width="300" height="300"></canvas>
+    	<input type="hidden" id="recived" name="recived" value="0">	
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
 <script>
-$('#recived').on('change', function (evt) {
+jQuery('#recived').on('change', function (evt) {
     console.log(evt);
     var valor=jQuery(this).val();
     var tiempo=new Date();
@@ -36,7 +28,7 @@ $('#recived').on('change', function (evt) {
 
 
 })
-$('#boton').click(function (evt) {
+jQuery('#boton').click(function (evt) {
     var tiempo=new Date();
     var hora= tiempo.getHours()+':'+tiempo.getMinutes()+':'+tiempo.getSeconds();
 
@@ -98,5 +90,6 @@ function removeData(chart) {
 }
 
 </script>
+
 
 {%endblock%}

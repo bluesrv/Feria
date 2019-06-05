@@ -25,9 +25,10 @@ ws.on('connection', function(w){
   });
 
 
-  for (var i = 1; i <= 100; i++) {
-    w.send(i);
-    a=sleep(10);
+  for (var i = 1; i <= 1000; i++) {
+    var j=Math.random()*100;
+    w.send(j);
+    a=sleep(1);
   }
 
 });

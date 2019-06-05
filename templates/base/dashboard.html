@@ -30,26 +30,26 @@
             <img src="../../static/img/LOGO_BEE.png">
           </div>
         </a>
-        <a href="" class="simple-text logo-normal">
+        <a href="{% url 'index' %}" class="simple-text logo-normal">
           BeegilantApp
         </a>
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="active ">
-            <a href="">
+          <li class=" ">
+            <a href=" {% url 'index' %}">
               <i class="fa fa-home"></i>
               <p>Inicio</p>
             </a>
           </li>
-          <li  class="active ">
-            <a href="">
+          <li  class=" ">
+            <a href="{% url 'camara' %}">
               <i class="fa fa-camera"></i>
               <p>Camara</p>
             </a>
           </li>
-          <li  class="active ">
-            <a href="">
+          <li  class=" ">
+            <a href="{% url 'registros' %}">
               <i class="fa fa-file-movie-o"></i>
               <p>Registros</p>
             </a>

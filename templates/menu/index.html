@@ -1,7 +1,4 @@
-{% extends 'base/base.html' %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script>jQuery.noConflict();</script>
-
+{% extends 'base/dashboard.html' %}
 
 {% block title %}
 <title>Beegilant</title>
@@ -13,16 +10,23 @@
     {% block jsincludes %}
         <script src="{% static "Scripts/Socketconf.js" %}"></script>
     {% endblock %}
-<h2>El Gráfico va aqu</h2>
-    <canvas id="myChart" width="400" height="400"></canvas>
+    <div class="card-header">
+    Gráfico
+    </div>
+    <div class="card-body">
+        <canvas id="myChart" width="400" height="300"></canvas>
+    </div>
+
     <input type="hidden" id="recived" name="recived" value="0">
 
 
 
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
 <script>
-jQuery('#recived').on('change', function (evt) {
+$('#recived').on('change', function (evt) {
     console.log(evt);
     var valor=jQuery(this).val();
     var tiempo=new Date();
@@ -32,7 +36,7 @@ jQuery('#recived').on('change', function (evt) {
 
 
 })
-jQuery('#boton').click(function (evt) {
+$('#boton').click(function (evt) {
     var tiempo=new Date();
     var hora= tiempo.getHours()+':'+tiempo.getMinutes()+':'+tiempo.getSeconds();
 

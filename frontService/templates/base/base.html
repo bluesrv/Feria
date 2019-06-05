@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  {% block title %}<title>title</title>{% endblock %}
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity=sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+  <div class="container-fluid" style="background-color:#FAD161">
+  	<div class="header-nav">
+  		<div class="user">
+  		  	<i class="material-icons" style="font-size:50px;">account_circle</i>	
+  		</div>
+    	<h1>Titulo</h1>
+    </div>
+    <div class="row">
+    	<div class="col-sm-2">
+      		{% block sidebar %}
+      		<div class="contenedor-side">
+      	 		<ul> 
+      	 			<center>
+      	 				<img src="{% static 'img/LOGO_BEE.png' %}" width="150" height="90">
+      	 			</center> 	 	
+         			<li><a style="color:#FFA500;" href=""><i class="material-icons">dashboard</i> Inicio</a></li>
+         			<li><a style="color:#FFA500;" href=""><i class="material-icons">camera_enhance</i> Camaras</a></li>
+         			<li><a style="color:#FFA500;" href=""><i class="material-icons">perm_media</i> Registros</a></li>
+      			</ul>
+			</div>
+	    	{% endblock %}
+      	</div>
+    	<div class="col-sm-10 ">
+    		<div class="content-nav">
+    			{% block content %} Info {% endblock %}
+    		</div>
+      	</div>
+    </div>
+
+  </div>
+</body>
+</html>
+

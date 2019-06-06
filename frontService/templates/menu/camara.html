@@ -7,9 +7,17 @@
 {% endblock %}
 
 {% block titulo %}
-<h2>Camara</h2>
+<h2>Cámara</h2>
 {% endblock %}
 
 {% block content %}
-<h2> Esto es la camara</h2>
+<div>
+    <script type="text/javascript" src="/static/Scripts/jsmpeg.min.js"></script>
+    <canvas id="chanel1" width="auto" height="auto"></canvas>
+    <script type="text/javascript">
+         var canvas = document.getElementById('chanel1');
+         var websocket = new WebSocket("ws://127.0.0.1:9999");
+         var player= new jsmpeg(websocket, {canvas:canvas, autoplay:true, loop:true})
+    </script>
+</div>
 {% endblock %}

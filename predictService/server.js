@@ -22,6 +22,12 @@ function convertBlock(incomingData) { // incoming data is a UInt8Array
     return outputData;
 }
 
+function convertTypedArray(src, type) {
+    var buffer = new ArrayBuffer(src.byteLength);
+    var baseView = new src.constructor(buffer).set(src);
+    return new type(buffer);
+}
+
 async function predict() {
 
   const model = await tf.loadLayersModel('file://model/model.json');
@@ -39,9 +45,10 @@ async function predict() {
 
   stream.on('readable', () => {
     let chunk;
-    while (null !== (chunk = stream.read(tWindow))) {
+    while (null !== (chunk = stream.read(tWindow*2))) {
 
-      var ta = convertBlock(chunk)
+      var ta = convertTypedArray(chunk, Uint16Array)
+      var ta = convertBlock(ta)
       var array =  Array.prototype.slice.call(ta)
       array = array.concat(new Array(284).fill(0))
       Meyda.numberOfMFCCCoefficients = 22;
@@ -90,7 +97,7 @@ async function predict() {
     reader.pipe(myWritable);
   });
 
-  request('http://192.168.100.74:8080/audio.wav').pipe(reader)
+  request('http://10.11.3.133:8080/audio.wav').pipe(reader)
 
   }
 

@@ -30,26 +30,26 @@
             <img src="../../static/img/LOGO_BEE.png">
           </div>
         </a>
-        <a href="" class="simple-text logo-normal">
+        <a href="{% url 'index' %}" class="simple-text logo-normal">
           BeegilantApp
         </a>
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="active ">
-            <a href="">
+          <li class="active">
+            <a href=" {% url 'index' %}">
               <i class="fa fa-home"></i>
               <p>Inicio</p>
             </a>
           </li>
-          <li  class="active ">
-            <a href="">
+          <li  class="active">
+            <a href="{% url 'camara' %}">
               <i class="fa fa-camera"></i>
               <p>Camara</p>
             </a>
           </li>
-          <li  class="active ">
-            <a href="">
+          <li  class="active">
+            <a href="{% url 'registros' %}">
               <i class="fa fa-file-movie-o"></i>
               <p>Registros</p>
             </a>
@@ -69,7 +69,9 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="#pablo">Grafico</a>
+            {% block titulo %}
+            <h2>title</h2>
+            {% endblock %}
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -88,14 +90,6 @@
               </div>
             </form>
             <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link btn-magnify" href="#pablo">
-                  <i class="nc-icon nc-layout-11"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Stats</span>
-                  </p>
-                </a>
-              </li>
               <li class="nav-item btn-rotate dropdown">
                 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="nc-icon nc-bell-55"></i>

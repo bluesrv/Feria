@@ -5,3 +5,7 @@ from django.http import HttpResponse
 
 def index(request):
     return render(request,'menu/index.html')
+def camara(request):
+	return render(request,'menu/camara.html')
+def registros(request):
+	return render(request,'menu/registros.html')

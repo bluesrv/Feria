@@ -104,15 +104,9 @@ client.on('data', function(data) {
   });
 
   var ffmpeg = require('fluent-ffmpeg')
-<<<<<<< HEAD
   ffmpeg('rtsp://feria:feria2019@192.168.43.14:554/videoMain')
     .noVideo()
     .audioFrequency(44100)
-=======
-  ffmpeg('rtsp://feria:feria2019@192.168.1.110:554/videoMain')
-    .noVideo()
-    .audioChannels(1)
->>>>>>> e6a6a2a2fdbf4f12b8e584f4a09d6a69e9e55c78
     .format('wav')
     .save('./output.wav')
 

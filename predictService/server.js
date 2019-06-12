@@ -84,7 +84,8 @@ client.on('data', function(data) {
       var tensor = model.predict(tf.tensor(chunk))
       var tensorData = tensor.dataSync()
       //console.log(tensorData[0])
-      prediction.emit('newPrediction', tensorData[0])
+
+      prediction.emit('newPrediction', (tensorData[0]))
     }
   });
 
@@ -108,7 +109,7 @@ client.on('data', function(data) {
     .noVideo()
     .audioFrequency(44100)
     .format('wav')
-    .save('./output.wav')
+    .pipe(reader)
 
   }
 

@@ -81,7 +81,7 @@
     		chart.data.datasets.forEach((dataset) => {
         		dataset.data.push(data);
     		});
-    		if(chart.data.labels.length>=100){
+    		if(chart.data.labels.length>=30){
         		chart.data.labels.shift();
         		chart.data.datasets.forEach((dataset) => {
            			dataset.data.shift();

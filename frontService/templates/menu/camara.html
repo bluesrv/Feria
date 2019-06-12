@@ -11,13 +11,17 @@
 {% endblock %}
 
 {% block content %}
-<div>
-    <script type="text/javascript" src="/static/Scripts/jsmpeg.min.js"></script>
-    <canvas id="chanel1" width="auto" height="auto"></canvas>
-    <script type="text/javascript">
-         var canvas = document.getElementById('chanel1');
-         var websocket = new WebSocket("ws://127.0.0.1:9999");
-         var player= new jsmpeg(websocket, {canvas:canvas, autoplay:true, loop:true})
-    </script>
-</div>
+<html>
+    <body>
+        <img id="image">
+        <script src="http://localhost:4000/socket.io/socket.io.js"></script>
+        <script>
+            const socket = io.connect('http://localhost:4000');
+            socket.on('image',(image) => {
+                const imageElm = document.getElementById('image');
+                imageElm.src = `data:image/jpeg;base64,${image}`;
+            });
+        </script>
+    </body>
+</html>
 {% endblock %}

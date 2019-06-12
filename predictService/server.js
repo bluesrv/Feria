@@ -109,10 +109,11 @@ async function predict() {
   });
 
   var ffmpeg = require('fluent-ffmpeg')
-  ffmpeg('audio1.wav')
+  ffmpeg('rtsp://feria:feria2019@192.168.1.110:554/videoMain')
+    .noVideo()
     .audioChannels(1)
     .format('wav')
-    .pipe(reader)
+    .save('./output.wav')
 
 
   }

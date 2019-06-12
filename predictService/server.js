@@ -11,6 +11,7 @@ var prediction = new EventEmitter();
 var Meyda = require("meyda")
 const Stream = require('stream')
 const request = require('request')
+const net = require('net')
 
 
 function convertBlock(incomingData, n) { // incoming data is a UInt8Array
@@ -30,9 +31,14 @@ function convertTypedArray(src, type) {
 
 async function predict() {
 
+  var client = new net.Socket();
+  client.connect(65432, '127.0.0.1', function() {
+    console.log('Connected');
+  });
+
   const model = await tf.loadLayersModel('file://model/model.json');
 
-  var tWindow = 512
+  var tWindow = 88200
   var count = 0
   var dataArray = []
   var frame = []
@@ -49,28 +55,22 @@ async function predict() {
     while (null !== (chunk = stream.read(tWindow*2))) {
       var ta = convertTypedArray(chunk, Int16Array)
       ta = convertBlock(ta, 16)
-
-      Meyda.numberOfMFCCCoefficients = 25;
-      var coefs = Meyda.extract('mfcc', ta)
-
-      var sum = 0
-      for (var i = 0; i < coefs.length; i++) {
-        sum += coefs[i]
-      }
-
-      dataArray.push([sum/25])
-      if (count == 172) {
-        count = 0
-        readable.push(dataArray)
-        dataArray = []
-
-      } else {
-        count += 1
-      }
+      //console.log(ta)
+      ta = convertTypedArray(ta, Uint8Array)
+      ta = Buffer.from(ta)
+      //console.log(ta.length)
+      client.write(ta)
+      //dataArray.push(mfccs)
 
   }
 
 })
+
+client.on('data', function(data) {
+  var parsed = JSON.parse(data)
+	readable.push(parsed)
+
+});
 
   var readable = new Stream.Readable({objectMode: true,
     read(size) {
@@ -79,16 +79,11 @@ async function predict() {
   )
 
   readable.on('readable', () => {
-    let chunk;
+    let chunk
     while (null !== (chunk = readable.read())) {
-      console.log(chunk)
-
-      var wrap = []
-      wrap.push(chunk)
-      wrap = tf.tensor(wrap)
-      var tensorData = model.predict(wrap)
-      console.log(tensorData[0])
-
+      var tensor = model.predict(tf.tensor(chunk))
+      var tensorData = tensor.dataSync()
+      //console.log(tensorData[0])
       prediction.emit('newPrediction', tensorData[0])
     }
   });
@@ -109,11 +104,11 @@ async function predict() {
   });
 
   var ffmpeg = require('fluent-ffmpeg')
-  ffmpeg('audio1.wav')
-    .audioChannels(1)
+  ffmpeg('rtsp://feria:feria2019@192.168.43.14:554/videoMain')
+    .noVideo()
+    .audioFrequency(44100)
     .format('wav')
     .pipe(reader)
-
 
   }
 

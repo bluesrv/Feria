@@ -1,5 +1,5 @@
 console.log('hola');
-var websocket = new WebSocket("ws://localhost:3000/");
+var websocket = new WebSocket("ws://10.11.7.5:34567/");
 
 websocket.onopen = function(evt) { onOpen(evt) };
 websocket.onclose = function(evt) { onClose(evt) };

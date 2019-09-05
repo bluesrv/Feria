@@ -83,9 +83,8 @@ client.on('data', function(data) {
     while (null !== (chunk = readable.read())) {
       var tensor = model.predict(tf.tensor(chunk))
       var tensorData = tensor.dataSync()
-      //console.log(tensorData[0])
-
-      prediction.emit('newPrediction', (tensorData[0]))
+      console.log(tensorData[0])
+      prediction.emit('newPrediction', tensorData[0])
     }
   });
 
@@ -105,7 +104,7 @@ client.on('data', function(data) {
   });
 
   var ffmpeg = require('fluent-ffmpeg')
-  ffmpeg('rtsp://192.168.1.85:8080/h264_ulaw.sdp')
+  ffmpeg('http://192.168.137.254:8080/audio.wav')
     .noVideo()
     .audioFrequency(44100)
     .format('wav')

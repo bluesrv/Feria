@@ -105,7 +105,7 @@ client.on('data', function(data) {
   });
 
   var ffmpeg = require('fluent-ffmpeg')
-  ffmpeg('rtsp://feria:feria2019@192.168.43.14:554/videoMain')
+  ffmpeg('rtsp://10.6.40.240:8080/h264_ulaw.sdp')
     .noVideo()
     .audioFrequency(44100)
     .format('wav')

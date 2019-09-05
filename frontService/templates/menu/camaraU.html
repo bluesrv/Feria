@@ -1,0 +1,27 @@
+{% extends 'base/dashboard2.html' %}
+
+
+
+{% block title %}
+<title>Beegilant</title>
+{% endblock %}
+
+{% block titulo %}
+<h2>Cámara</h2>
+{% endblock %}
+
+{% block content %}
+<html>
+    <body>
+        <img id="image">
+        <script src="http://localhost:4000/socket.io/socket.io.js"></script>
+        <script>
+            const socket = io.connect('http://localhost:4000');
+            socket.on('image',(image) => {
+                const imageElm = document.getElementById('image');
+                imageElm.src = `data:image/jpeg;base64,${image}`;
+            });
+        </script>
+    </body>
+</html>
+{% endblock %}

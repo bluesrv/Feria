@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Beegilant-Login</title>
+    <link href="../../static/assets/css/login.css" rel="stylesheet" />
+</head>
+
+<body>
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="../../static/img/LOGO_BEE.png" id="icon" alt="User Icon" />
+    </div>
+      <!-- Tabs Titles -->
+    <h2 class="active"> Iniciar sesión</h2>
+
+    <!-- Login Form -->
+    <form id="form_id">
+      <input type="text" id="login" class="fadeIn second" name="login" placeholder="mail">
+      <input type="password" id="password" class="form-control" placeholder="contraseña">
+        <script>
+            function badUser(){
+                var para = document.createElement("p");
+                var node = document.createTextNode("Usuario o contraseña erroneos");
+                para.appendChild(node);
+                para.style.color='red';
+                var element = document.getElementById("form_id");
+                element.appendChild(para);
+                document.getElementById("form_id").submit()
+
+            }
+
+        </script>
+      <input type="button"  class="fadeIn fourth" value="Log In" onclick="logUser()">
+    </form>
+
+    <!-- Remind Passowrd -->
+
+
+  </div>
+</div>
+<script>
+    function logUser(){
+        var name = document.getElementById("login").value;
+        var pass = document.getElementById("password").value;
+        if (name=="admin@dom.cl"){
+            window.location.href = "{% url 'index' %}";
+        }
+        else if (name=="madre@dom.cl"){
+            window.location.href = "{% url 'indexU' %}";
+        }
+        else{
+            badUser();
+        }
+    }
+
+</script>
+</body>
+

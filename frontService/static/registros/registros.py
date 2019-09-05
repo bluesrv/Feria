@@ -4,6 +4,7 @@ import socket
 import os
 import shutil
 import time
+import sys
 
 mi_socket= socket.socket()
 mi_socket.bind(('localhost',8080))
@@ -47,13 +48,34 @@ while bool:
                     names_files.write("file "+str(name)+".ts\n")
 
     #os.system("(for %i in (*.ts) do @echo file '%i') > mylist.txt")
-    name='1'
+    name=sys.argv[1]
     os.system('ffmpeg -f concat -safe 0 -i mylist.txt -c copy '+name+'.mp4')
 
     for file_ in os.listdir("."):
             if file_[-2:]=="ts":
                 os.remove(file_)
     #end recording
+
+    #update html
+    readFile = open("../../templates/menu/registros.html")
+
+    mensaje = """<h3> Video """+str(name)+"""</h3>
+    <video controls width="640" height="480">
+            <source src="{% static 'registros/"""+str(name)+""".mp4' %}" type="video/mp4">
+            Tu navegador no implementa el elemento <code>video</code>.
+        </video>
+    {% endblock %}"""
+
+    lines = readFile.readlines()
+    lines[-1] = mensaje
+
+    readFile.close()
+
+    f = open("../../templates/menu/registros.html",'w')
+    f.writelines([item for item in lines])
+
+    #f.write(mensaje)
+    f.close()
 
 
     print(info)

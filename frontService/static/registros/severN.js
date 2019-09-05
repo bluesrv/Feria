@@ -17,7 +17,7 @@ ws.on('connection', function(w){
     
     var message = JSON.parse(msg);
     
-    exec('py hola.py', (err, stdout, stderr) => {  
+    exec('python registro.py'+message.id, (err, stdout, stderr) => {  
       if (err) {  
         console.error(err);  
         return;  
@@ -25,7 +25,7 @@ ws.on('connection', function(w){
       console.log(stdout);  
     });  
 
-    var log=message.id+';'message.hora+';'+message.nivel+';'+message.sala+'\n';
+    var log=message.id+';'+message.hora+';'+message.nivel+';'+message.sala+'\n';
 
     fs.appendFile('log.txt', log, function (err) {
       if (err) {

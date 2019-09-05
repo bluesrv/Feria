@@ -16,10 +16,14 @@
     {% block jsincludes %}
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
         <script src="{% static "Scripts/Socketconf.js" %}"></script>
+
     {% endblock %}
 	<canvas id="myChart" style="width:auto; height:200px" ></canvas>
     <input type="hidden" id="recived" name="recived" value="0">
     <input type="hidden" id="alertitas" name="alertitas" value="0">
+    <div class="buttons">
+        <button class="trigger-push">Trigger Push Notification</button>
+      </div>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 		<script src="{% static "Scripts/grafico.js" %}"></script>
     <script>
@@ -36,5 +40,6 @@
         console.log(count);
     })
     </script>
+    <script src="{% static "Scripts/clientNotif.js" %}"></script>
 
 {%endblock%}

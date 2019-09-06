@@ -32,7 +32,7 @@ function convertTypedArray(src, type) {
 async function predict() {
 
   var client = new net.Socket();
-  client.connect(65432, '127.0.0.1', function() {
+  client.connect(3000, '127.0.0.1', function() {
     console.log('Connected');
   });
 
@@ -105,7 +105,7 @@ client.on('data', function(data) {
   });
 
   var ffmpeg = require('fluent-ffmpeg')
-  ffmpeg('rtsp://192.168.1.85:8080/h264_ulaw.sdp')
+  ffmpeg('rtsp://10.6.40.240:8080/h264_ulaw.sdp')
     .noVideo()
     .audioFrequency(44100)
     .format('wav')

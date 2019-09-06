@@ -17,7 +17,7 @@ ws.on('connection', function(w){
     
     var message = JSON.parse(msg);
     
-    exec('python registro.py'+message.id, (err, stdout, stderr) => {  
+    exec('python registros.py '+message.id+' '+message.hora+" "+message.nivel, (err, stdout, stderr) => {  
       if (err) {  
         console.error(err);  
         return;  

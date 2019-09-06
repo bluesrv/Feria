@@ -1,5 +1,5 @@
 
-var websocket = new WebSocket("ws://localhost:3000/");
+var websocket = new WebSocket("ws://localhost:34567/");
 var wsAlarma= new WebSocket("ws://localhost:65433/");
 var cont=0;
 
@@ -33,16 +33,16 @@ function onMessage(evt) {
 
   var event = new Event('change');
   cola.push(parseFloat(message));
-  if (cola.length>6){
+  if (cola.length>1){
     cola.shift();
   }
   let sum =cola.reduce((previous, current) => current += previous);
   let result = sum / cola.length;
-  console.log(sum);
+  console.log('promedio');
   console.log(result);
   var tiempo=new Date();
   var hora= tiempo.getDate()+'/'+(tiempo.getMonth()+1)+'/'+tiempo.getFullYear()+ '-'+ tiempo.getHours()+':'+tiempo.getMinutes()
-  if(result>60){
+  if(result>0.5){
     console.log('alarma');
     n_alertas.value=message;
     n_alertas.dispatchEvent(event);

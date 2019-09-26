@@ -37,6 +37,12 @@ async function predict() {
   });
 
   const model = await tf.loadLayersModel('file://model/model.json');
+  const optimizer = tf.train.adam(0.01);
+  await model.compile({
+     optimizer,
+     loss: 'binaryCrossentropy',
+     metrics: ['accuracy']
+   });
 
   var tWindow = 88200
   var count = 0
@@ -83,8 +89,20 @@ client.on('data', function(data) {
     while (null !== (chunk = readable.read())) {
       var tensor = model.predict(tf.tensor(chunk))
       var tensorData = tensor.dataSync()
-      console.log(tensorData[0])
+      //console.log(tensorData[0])
       prediction.emit('newPrediction', tensorData[0])
+
+      //en realidad tengo que hacer un ws para recibir el feedback, pero para probar...
+      // var ys = tf.tensor([1])
+      //model.fit(tf.tensor(chunk), ys, {
+        // batchSize: 1,
+      //   epochs: 1,
+         //callbacks: {
+           //onEpochEnd: (epoch, logs) => {
+             //console.log(logs.acc * 100)
+           //}
+         //}
+       //})
     }
   });
 
@@ -104,7 +122,7 @@ client.on('data', function(data) {
   });
 
   var ffmpeg = require('fluent-ffmpeg')
-  ffmpeg('http://192.168.137.254:8080/audio.wav')
+  ffmpeg('http://192.168.137.62:8080/audio.wav')
     .noVideo()
     .audioFrequency(44100)
     .format('wav')
@@ -137,4 +155,4 @@ fastify.ready(err => {
     })
 })
 
-fastify.listen(34567)
+fastify.listen(3000)

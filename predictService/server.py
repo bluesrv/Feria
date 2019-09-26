@@ -17,9 +17,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         while True:
             data = conn.recv(352800)
             x = np.frombuffer(data, np.float32)
-            mfcc = read_data.cf.calculate_features(x, 44100, 0).flatten().reshape(-1,1)
-            mfcc= np.expand_dims(mfcc, axis=0).tolist()
-            #response.reverse()
-            response=json.dumps(mfcc)
-            #print(response)
+            mfcc = read_data.cf.calculate_features(x, 44100, 0)
+            mfcc = np.transpose(mfcc)
+            mfcc = np.expand_dims(mfcc, axis=0).tolist()
+            response = json.dumps(mfcc)
             conn.send(response.encode('utf-8'))

@@ -4,4 +4,6 @@
 
 
 /predictService/node_modules
-
+/predictService/__pycache__
+/frontService/__pycache__
+/frontService/BeegilantApp/__pycache__

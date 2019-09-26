@@ -9,7 +9,6 @@ def calculate_features(frames, freq, options):
     window_sec = 0.2
     window_n = int(freq * window_sec)
     use_derivatives = False
-    print(window_n,  int(window_n / 2))
     st_f = stFeatureExtraction(frames, freq, window_n, int(window_n / 2))
 
     if st_f.shape[1] > 2:

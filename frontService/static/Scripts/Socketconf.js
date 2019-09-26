@@ -69,5 +69,3 @@ function addMessage() {
   chat.value = "";
   websocket.send(message);
 }
-
-

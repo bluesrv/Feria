@@ -5,8 +5,8 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-const FPS = 15;
-const wCap = new cv.VideoCapture('rtsp://feria:feria2019@192.168.43.14:554/videoMain');
+const FPS = 35;
+const wCap = new cv.VideoCapture('rtsp://192.168.1.85:8080/h264_ulaw.sdp');
 
 app.get('/',(req,res) => {
     res.sendFile(path.join(__dirname, 'templates/menu/camara.html'));

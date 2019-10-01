@@ -40,7 +40,6 @@ with open("mylist.txt", 'w') as names_files:
         for name in names:
             names_files.write("file "+str(name)+"\n")
 
-name="video"
 os.system('ffmpeg -f concat -safe 0 -i mylist.txt -c copy '+str(sys.argv[1])+'.mkv')
 
 
@@ -48,3 +47,29 @@ for file_ in os.listdir("."):
         if file_[0]=="p":
             os.remove(file_) 
 #end recording
+
+
+#update html
+readFile = open("../../../templates/menu/registros.html")
+
+mensaje = """<h3> Video """+sys.argv[1]+" </h3> <h5>Fecha: "+sys.argv[2]+" </h5> <h5>Nivel: "+sys.argv[3]+ """</h5>
+<video controls width="320" height="208">
+        <source src="{% static 'registros/"""+"data"+"/"+str(sys.argv[1])+""".mkv' %}" type="video/mp4">
+        Tu navegador no implementa el elemento <code>video</code>.
+</video>
+<h4> La alarma es correcta </h4>
+<input type="submit" value="Si" />
+<input type="submit" value="No" />
+
+{% endblock %}"""
+
+lines = readFile.readlines()
+lines[-1] = mensaje
+
+readFile.close()
+
+f = open("../../../templates/menu/registros.html",'w')
+f.writelines([item for item in lines])
+
+#f.write(mensaje)
+f.close()

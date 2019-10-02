@@ -38,7 +38,7 @@ async function predict() {
   });
 
   const model = await tf.loadLayersModel('file://model/model.json');
-  const optimizer = tf.train.adam(0.01);
+  const optimizer = tf.train.rmsprop(0.000001)
   await model.compile({
      optimizer,
      loss: 'binaryCrossentropy',

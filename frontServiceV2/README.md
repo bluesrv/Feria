@@ -9,6 +9,8 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser #tienen que logearse o no van a poder correr nada
 ```
+
+Si tienen datos en la bd y aun no se ve nada, instalen el plugin cors de chrome
 # frontend
 
 > A Vue.js project
@@ -26,3 +28,5 @@ npm run build
 ```
 
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+

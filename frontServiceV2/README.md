@@ -1,15 +1,25 @@
+# BD
+* Mongo
+* Nombre: Beegilant
+* Sin contraseña
+* localhost:27017
+
+``` bash
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser #tienen que logearse o no van a poder correr nada
+```
 # frontend
 
 > A Vue.js project
 
 ## Build Setup
 
+Lo tienen que compilar, por eso si hacen un cambio no se verá altiro en la vista, configuré mal el webpack y no me deja usarlo en modo dev, si alguien sabe arreglarlo, porfa hagalo 
 ``` bash
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
-npm run dev
 
 # build for production with minification
 npm run build

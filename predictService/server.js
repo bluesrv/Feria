@@ -104,11 +104,7 @@ client.on('data', function(data) {
   });
 
   var ffmpeg = require('fluent-ffmpeg')
-<<<<<<< HEAD
-  ffmpeg('rtsp://10.6.40.240:8080/h264_ulaw.sdp')
-=======
   ffmpeg('http://192.168.137.254:8080/audio.wav')
->>>>>>> 1b724545752bfc031b5fd41545c6aad1fcf0922f
     .noVideo()
     .audioFrequency(44100)
     .format('wav')

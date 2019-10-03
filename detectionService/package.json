@@ -1,0 +1,34 @@
+{
+  "name": "detectionservice",
+  "version": "1.0.0",
+  "description": "object detection service for beegilant",
+  "main": "predictor.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluesrv/Feria.git"
+  },
+  "keywords": [
+    "beegilant"
+  ],
+  "author": "Kibosoft",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bluesrv/Feria/issues"
+  },
+  "homepage": "https://github.com/bluesrv/Feria#readme",
+  "dependencies": {
+    "@tensorflow-models/coco-ssd": "^2.0.0",
+    "@tensorflow/tfjs": "^1.2.9",
+    "@tensorflow/tfjs-node": "^1.2.9",
+    "canvas": "^2.6.0",
+    "fastify": "^2.9.0",
+    "fastify-ws": "^1.0.3",
+    "fluent-ffmpeg": "^2.1.2",
+    "node-rtsp-stream": "0.0.8",
+    "through2": "^3.0.1"
+  }
+}

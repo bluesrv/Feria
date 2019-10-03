@@ -12,6 +12,7 @@ var Meyda = require("meyda")
 const Stream = require('stream')
 const request = require('request')
 const net = require('net')
+var buffer = {}
 
 
 function convertBlock(incomingData, n) { // incoming data is a UInt8Array
@@ -32,11 +33,17 @@ function convertTypedArray(src, type) {
 async function predict() {
 
   var client = new net.Socket();
-  client.connect(3000, '127.0.0.1', function() {
+  client.connect(65432, '127.0.0.1', function() {
     console.log('Connected');
   });
 
   const model = await tf.loadLayersModel('file://model/model.json');
+  const optimizer = tf.train.rmsprop(0.000001)
+  await model.compile({
+     optimizer,
+     loss: 'binaryCrossentropy',
+     metrics: ['accuracy']
+   });
 
   var tWindow = 88200
   var count = 0
@@ -83,8 +90,14 @@ client.on('data', function(data) {
     while (null !== (chunk = readable.read())) {
       var tensor = model.predict(tf.tensor(chunk))
       var tensorData = tensor.dataSync()
-      console.log(tensorData[0])
-      prediction.emit('newPrediction', tensorData[0])
+      //console.log(tensorData[0])
+      var timestamp = date.getTime();
+      prediction.emit('newPrediction', { id: timestamp, nivel: tensorData[0] })
+
+      if (tensorData[0] > 0.5) {
+        buffer[timestamp] = chunk
+      }
+
     }
   });
 
@@ -104,11 +117,7 @@ client.on('data', function(data) {
   });
 
   var ffmpeg = require('fluent-ffmpeg')
-<<<<<<< HEAD
-  ffmpeg('rtsp://10.6.40.240:8080/h264_ulaw.sdp')
-=======
-  ffmpeg('http://192.168.137.254:8080/audio.wav')
->>>>>>> 1b724545752bfc031b5fd41545c6aad1fcf0922f
+  ffmpeg('http://192.168.137.62:8080/audio.wav')
     .noVideo()
     .audioFrequency(44100)
     .format('wav')
@@ -133,6 +142,20 @@ fastify.ready(err => {
       }
 
       prediction.on('newPrediction', sendPrediction)
+
+      socket.on('feedback' (id) => {
+        model.fit(tf.tensor(buffer[id]), 0, {
+          batchSize: 1,
+          epochs: 1,
+          callbacks: {
+             onEpochEnd: (epoch, logs) => {
+               console.log(logs.acc * 100)
+             }
+          }
+        })
+
+        model.save('file:///model');
+      })
 
       socket.on('close', () => {
         prediction.removeListener("newPrediction", sendPrediction)

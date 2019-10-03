@@ -15,9 +15,10 @@ async function initPredictor(pubsub){
   const handlePrediction = buildHandlerPrediction(pubsub);
   const predictFunc = buildPrediction(model, handlePrediction);
   
-  let lastProcesed = 1;
+  let toProcess = 0;
+  let flag = true;
 
-  ffmpeg('rtsp://10.6.43.52:8080/h264_ulaw.sdp')
+  ffmpeg('rtsp://192.168.0.12:8080/h264_ulaw.sdp')
   .noAudio()
   .videoCodec('libx264')
   .size('640x?')
@@ -25,13 +26,17 @@ async function initPredictor(pubsub){
   .fps(1/2)
   .outputOptions('-y')
   .outputOptions('-vcodec png')
-  .format('image2')
+  .outputOptions('-flush_packets 1')
   .save('temp%d.png')
-  .on('progress', (progress) => {
-    if(progress.frames !== lastProcesed){
-      console.log(`Predicting frame ${lastProcesed}:`);
-      predictFunc(progress.frames - 1);
-      lastProcesed = progress.frames;
+  .on('progress', async (progress) => {
+    if(flag){
+      toProcess = progress.frames;
+      flag = false;
+    }
+    if(progress.frames !== toProcess){
+      console.log(`Predicting frame ${toProcess - 1}:`);
+      await predictFunc(toProcess - 1);
+      toProcess = toProcess + 1;
     }
   })
 }

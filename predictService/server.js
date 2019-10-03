@@ -147,7 +147,7 @@ fastify.ready(err => {
       prediction.on('newPrediction', sendPrediction)
 
       socket.on('feedback', id => {
-        if !("key" in obj) {
+        if !(id in buffer) {
           console.log("Data recieved")
         } else {
           model.fit(tf.tensor(buffer[id]), 0, {

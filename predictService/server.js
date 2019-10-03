@@ -146,21 +146,8 @@ fastify.ready(err => {
 
       prediction.on('newPrediction', sendPrediction)
 
-      socket.on('feedback', id => {
-        if !(id in buffer) {
-          console.log("Data recieved")
-        } else {
-          model.fit(tf.tensor(buffer[id]), 0, {
-            batchSize: 1,
-            epochs: 1,
-            callbacks: {
-               onEpochEnd: (epoch, logs) => {
-                 console.log(logs.acc * 100)
-               }
-            }
-          })
-          model.save('file:///model');
-        }
+      socket.on('message', (id) => {
+        console.log("Data recieved")
 
       })
 

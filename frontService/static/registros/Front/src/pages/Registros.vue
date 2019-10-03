@@ -21,7 +21,7 @@
     methods: {
       alarma: function(message) {
           console.log(message);
-          ws.onopen = () => ws.emit("feedback", message)
+          ws.onopen = () => ws.send(message)
       },
       desactivar: function(name,nombreBotones){
         var partesBotones = nombreBotones.split(",");

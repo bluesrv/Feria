@@ -18,7 +18,7 @@ async function initPredictor(pubsub){
   let toProcess = 0;
   let flag = true;
 
-  ffmpeg('rtsp://192.168.0.12:8080/h264_ulaw.sdp')
+  ffmpeg('rtsp://192.168.1.174:8080/h264_ulaw.sdp')
   .noAudio()
   .videoCodec('libx264')
   .size('640x?')

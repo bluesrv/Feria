@@ -21,6 +21,7 @@ function convertBlock(incomingData, n) { // incoming data is a UInt8Array
     for (i = 0; i < l; i++) {
         outputData[i] = (incomingData[i]) / ((2**n)/1.0);
     }
+    console.log(outputData)
     return outputData;
 }
 
@@ -91,7 +92,8 @@ client.on('data', function(data) {
       var tensor = model.predict(tf.tensor(chunk))
       var tensorData = tensor.dataSync()
       //console.log(tensorData[0])
-      var timestamp = date.getTime();
+      var d = new Date();
+      var timestamp = d.getTime();
       prediction.emit('newPrediction', { id: timestamp, nivel: tensorData[0] })
 
       if (tensorData[0] > 0.5) {
@@ -117,7 +119,7 @@ client.on('data', function(data) {
   });
 
   var ffmpeg = require('fluent-ffmpeg')
-  ffmpeg('http://192.168.137.62:8080/audio.wav')
+  ffmpeg('http://192.168.1.174:8080/audio.wav')
     .noVideo()
     .audioFrequency(44100)
     .format('wav')
@@ -143,7 +145,7 @@ fastify.ready(err => {
 
       prediction.on('newPrediction', sendPrediction)
 
-      socket.on('feedback' (id) => {
+      socket.on('feedback', (id) => {
         model.fit(tf.tensor(buffer[id]), 0, {
           batchSize: 1,
           epochs: 1,

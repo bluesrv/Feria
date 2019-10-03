@@ -21,7 +21,7 @@ function convertBlock(incomingData, n) { // incoming data is a UInt8Array
     for (i = 0; i < l; i++) {
         outputData[i] = (incomingData[i]) / ((2**n)/1.0);
     }
-    console.log(outputData)
+    //console.log(outputData)
     return outputData;
 }
 
@@ -94,6 +94,7 @@ client.on('data', function(data) {
       //console.log(tensorData[0])
       var d = new Date();
       var timestamp = d.getTime();
+
       prediction.emit('newPrediction', { id: timestamp, nivel: tensorData[0] })
 
       if (tensorData[0] > 0.5) {
@@ -119,7 +120,7 @@ client.on('data', function(data) {
   });
 
   var ffmpeg = require('fluent-ffmpeg')
-  ffmpeg('rtsp://192.168.1.85:8080/h264_ulaw.sdp')
+  ffmpeg('http://192.168.137.62:8080/audio.wav')
     .noVideo()
     .audioFrequency(44100)
     .format('wav')
@@ -140,27 +141,31 @@ fastify.ready(err => {
       console.log('Client connected.')
 
       let sendPrediction = function(res) {
-        socket.send(res)
+        socket.send(JSON.stringify({ id: res.id, nivel: res.nivel}))
       }
 
       prediction.on('newPrediction', sendPrediction)
 
-      socket.on('feedback', (id) => {
-        model.fit(tf.tensor(buffer[id]), 0, {
-          batchSize: 1,
-          epochs: 1,
-          callbacks: {
-             onEpochEnd: (epoch, logs) => {
-               console.log(logs.acc * 100)
-             }
-          }
-        })
+      socket.on('feedback', id => {
+        if !("key" in obj) {
+          console.log("Data recieved")
+        } else {
+          model.fit(tf.tensor(buffer[id]), 0, {
+            batchSize: 1,
+            epochs: 1,
+            callbacks: {
+               onEpochEnd: (epoch, logs) => {
+                 console.log(logs.acc * 100)
+               }
+            }
+          })
+          model.save('file:///model');
+        }
 
-        model.save('file:///model');
       })
 
+
       socket.on('close', () => {
-        prediction.removeListener("newPrediction", sendPrediction)
         console.log('Client disconnected.')
       })
     })

@@ -15,13 +15,13 @@
 </template>
 
 <script>
-  var ws = new WebSocket("ws://localhost:34567/") 
+  var ws = new WebSocket("ws://localhost:34567/")
   export default{
-    
+
     methods: {
       alarma: function(message) {
           console.log(message);
-          ws.onopen = () => ws.send(message)
+          ws.onopen = () => ws.emit("feedback", message)
       },
       desactivar: function(name,nombreBotones){
         var partesBotones = nombreBotones.split(",");
@@ -31,10 +31,10 @@
             boton.disabled = true;
         }
 
-        
+
       }
-          
-      
+
+
     }
   };
 </script>

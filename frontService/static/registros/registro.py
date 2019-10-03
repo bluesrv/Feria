@@ -6,7 +6,7 @@ import sys
 import time
 import datetime
 
-
+'''
 #start recording
 src = "./registros" #Origen
 dest = "./data" #destino
@@ -47,29 +47,30 @@ for file_ in os.listdir("."):
         if file_[0]=="p":
             os.remove(file_) 
 #end recording
-
+os.chdir("./..")
+'''
 
 #update html
-readFile = open("../../../templates/menu/registros.html")
+readFile = open("./Front/src/pages/Registros.vue")
 
 mensaje = """<h3> Video """+sys.argv[1]+" </h3> <h5>Fecha: "+sys.argv[2]+" </h5> <h5>Nivel: "+sys.argv[3]+ """</h5>
 <video controls width="320" height="208">
-        <source src="{% static 'registros/"""+"data"+"/"+str(sys.argv[1])+""".mkv' %}" type="video/mp4">
+        <source src='./../../../data/"""+str(sys.argv[1])+""".mkv' type="video/mp4">
         Tu navegador no implementa el elemento <code>video</code>.
 </video>
-<h4> La alarma es correcta </h4>
-<input type="submit" value="Si" />
-<input type="submit" value="No" />
-
-{% endblock %}"""
+<h3> &iquestEs una situaci&oacuten de violencia?</h3>
+<button input name="""+sys.argv[1]+"""1 id='"""+sys.argv[1]+"""1' v-on:click="desactivar("""+sys.argv[1]+"""1,'"""+sys.argv[1]+"""1,"""+sys.argv[1]+"""2')">S&iacute lo es</button>
+<button input name="""+sys.argv[1]+"""2 id='"""+sys.argv[1]+"""2' v-on:click="alarma("""+sys.argv[1]+"""); desactivar("""+sys.argv[1]+"""1,'"""+sys.argv[1]+"""1,"""+sys.argv[1]+"""2')">No lo es</button>
+"""
 
 lines = readFile.readlines()
-lines[-1] = mensaje
+finals = lines[-27:]
+inicials = lines[:-27]
+new=inicials.append(mensaje)
+new2=inicials+finals
 
 readFile.close()
 
-f = open("../../../templates/menu/registros.html",'w')
-f.writelines([item for item in lines])
-
-#f.write(mensaje)
+f = open("./Front/src/pages/Registros.vue",'w')
+f.writelines([item for item in new2])
 f.close()

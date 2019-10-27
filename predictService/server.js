@@ -31,7 +31,7 @@ function convertTypedArray(src, type) {
     return new type(buffer);
 }
 
-async function predict() {
+async function predict(url) {
 
   var client = new net.Socket();
   client.connect(65432, '127.0.0.1', function() {
@@ -91,7 +91,7 @@ client.on('data', function(data) {
     while (null !== (chunk = readable.read())) {
       var tensor = model.predict(tf.tensor(chunk))
       var tensorData = tensor.dataSync()
-      //console.log(tensorData[0])
+      console.log(tensorData[0])
       var d = new Date();
       var timestamp = d.getTime();
 
@@ -120,13 +120,13 @@ client.on('data', function(data) {
   });
 
   var ffmpeg = require('fluent-ffmpeg')
-  ffmpeg('http://192.168.137.62:8080/audio.wav')
+  ffmpeg(url)
     .noVideo()
     .audioFrequency(44100)
     .format('wav')
     .pipe(reader)
 
-  }
+}
 
 fastify.register(require('fastify-ws'))
 
@@ -141,10 +141,7 @@ fastify.ready(err => {
 
   process.stdout.on('data', function(data) {
     console.log('Server started.')
-    predict()
   } )
-
-
 
   fastify.ws.on('connection', (socket, request) => {
       console.log('Client connected.')
@@ -155,11 +152,19 @@ fastify.ready(err => {
 
       prediction.on('newPrediction', sendPrediction)
 
-      socket.on('feedback', id => {
-        console.log("Data recieved")
+      socket.on('message', dataString => {
+
+        var data = JSON.parse(dataString)
+
+        if (data.event == 'addCamera') {
+          console.log("Adding camera " + data.url)
+          predict(data.url)
+
+        } else if (data.event == 'feedback') {
+          console.log("Updating model...")
+        }
 
       })
-
 
       socket.on('close', () => {
         console.log('Client disconnected.')

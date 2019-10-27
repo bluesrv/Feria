@@ -29,6 +29,7 @@
     "python-shell": "^1.0.7",
     "request": "^2.88.0",
     "rollup": "^1.13.1",
+    "socket.io": "^2.3.0",
     "speaker": "^0.4.2",
     "stream": "0.0.2",
     "url": "^0.11.0",

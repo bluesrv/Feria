@@ -134,8 +134,17 @@ fastify.register(require('fastify-ws'))
 fastify.ready(err => {
   if (err) throw err
 
-  console.log('Server started.')
-  predict()
+  //iniciar procesos python
+  var spawn = require("child_process").spawn;
+
+  var process = spawn('python',["-u","./server.py"]);
+
+  process.stdout.on('data', function(data) {
+    console.log('Server started.')
+    predict()
+  } )
+
+
 
   fastify.ws.on('connection', (socket, request) => {
       console.log('Client connected.')
@@ -146,7 +155,7 @@ fastify.ready(err => {
 
       prediction.on('newPrediction', sendPrediction)
 
-      socket.on('message', (id) => {
+      socket.on('feedback', id => {
         console.log("Data recieved")
 
       })

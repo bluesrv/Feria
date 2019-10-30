@@ -96,6 +96,7 @@ client.on('data', function(data) {
       var timestamp = d.getTime();
 
       prediction.emit('newPrediction', { id: timestamp, nivel: tensorData[0] })
+      console.log(tensorData[0])
 
       if (tensorData[0] > 0.5) {
         buffer[timestamp] = chunk
@@ -120,7 +121,7 @@ client.on('data', function(data) {
   });
 
   var ffmpeg = require('fluent-ffmpeg')
-  ffmpeg('http://192.168.137.62:8080/audio.wav')
+  ffmpeg('http://192.168.1.174:8080/audio.wav')
     .noVideo()
     .audioFrequency(44100)
     .format('wav')

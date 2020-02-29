@@ -3,7 +3,16 @@ node_modules/
 dist/
 npm-debug.log
 yarn-error.log
+/networkStudy/Datasets
+/networkStudy/.ipynb_checkpoints
+/networkStudy/Datasets.rar
 
+
+/predictService/node_modules
+
+/frontServiceV2/node_modules
+
+/detectionService/node_modules
 # Editor directories and files
 .idea
 *.suo

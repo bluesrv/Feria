@@ -11,6 +11,7 @@ yarn-error.log
 /predictService/node_modules
 
 /frontServiceV2/node_modules
+/streaming/node_modules
 
 /detectionService/node_modules
 # Editor directories and files
